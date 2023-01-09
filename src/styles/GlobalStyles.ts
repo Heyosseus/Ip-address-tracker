@@ -7,7 +7,6 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
     }
     body{
-        color: white;
         font-family: 'Rubik', sans-serif;
         overflow-x: hidden;
         overflow-y: hidden;
