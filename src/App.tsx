@@ -5,7 +5,17 @@ import Header from './components/Header';
 
 import GlobalStyles from './styles/GlobalStyles';
 
-function App() {
+interface IpData {
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
+
+const App: React.FC = () => {
+  const [ip, setIp] = useState<any>('');
+  const [ipData, setIpData] = useState<IpData | null>(null);
+
   return (
     <>
       <GlobalStyles />
@@ -16,10 +26,14 @@ function App() {
           rel="stylesheet"
         ></link>
       </Helmet>
-      <Header />
-      <Content />
+      <Header
+        ip={ip}
+        setIp={setIp}
+        setIpData={setIpData}
+      />
+
     </>
   );
-}
+};
 
 export default App;
