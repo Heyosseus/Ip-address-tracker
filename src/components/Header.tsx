@@ -32,7 +32,7 @@ const Header: React.FC<Props> = ({
   useEffect(() => {
     async function fetchAddress() {
       try {
-        const res = await fetch(`http://ip-api.com/json/`);
+        const res = await fetch(`https://ip-api.com/json/`);
         const data = await res.json();
         setIpAddress(data.query);
         setLocation(data.country);
@@ -50,25 +50,22 @@ const Header: React.FC<Props> = ({
     fetchAddress();
   }, []);
 
-  
-    async function handleClick() {
-      try {
-        const res = await fetch(`http://ip-api.com/json/${ip}`);
-        const forUser = await res.json();
-        setIpAddress(forUser.query);
-        setLocation(forUser.country);
-        setCity(forUser.city);
-        setTimezone(forUser.timezone);
-        setIsp(forUser.isp);
-        setIpData(forUser);
-        setLat(forUser.lat);
-        setLong(forUser.lon);
-      } catch (err) {
-        console.error(err);
-      }
+  async function handleClick() {
+    try {
+      const res = await fetch(`https://ip-api.com/json/${ip}`);
+      const forUser = await res.json();
+      setIpAddress(forUser.query);
+      setLocation(forUser.country);
+      setCity(forUser.city);
+      setTimezone(forUser.timezone);
+      setIsp(forUser.isp);
+      setIpData(forUser);
+      setLat(forUser.lat);
+      setLong(forUser.lon);
+    } catch (err) {
+      console.error(err);
     }
-
-   
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,7 +111,7 @@ const Header: React.FC<Props> = ({
           </div>
         </Container>
       </BackgroundImage>
-      <Content lat={lat} long={long}/>
+      <Content lat={lat} long={long} />
     </div>
   );
 };
@@ -210,16 +207,15 @@ const Container = styled.div`
   text-align: center;
   @media (min-width: 678px) {
     width: 75vw;
-    padding: 28px ;
+    padding: 28px;
     align-items: center;
     text-align: center;
-
   }
   @media (min-width: 1024px) {
     width: 65vw;
     display: flex;
     flex-direction: row;
-    padding: 28px ;
+    padding: 28px;
     justify-content: space-between;
     align-items: center;
   }
@@ -236,27 +232,27 @@ const LabelName = styled.h3`
   @media (min-width: 678px) {
     text-align: center;
     font-size: 12px;
-    opacity: .8;
+    opacity: 0.8;
     margin-bottom: 16px;
     margin-top: 6px;
   }
   @media (min-width: 1024px) {
     text-align: left;
     font-size: 12px;
-    opacity: .8;
+    opacity: 0.8;
     margin-bottom: 16px;
     margin-top: 0;
   }
 `;
 
 const Line = styled.div`
-@media (min-width: 1024px){
-  width: 1px;
-  height: 85px;
-  background: black;
-  opacity: 15%;
-}
-`
+  @media (min-width: 1024px) {
+    width: 1px;
+    height: 85px;
+    background: black;
+    opacity: 15%;
+  }
+`;
 
 const Infos = styled.p`
   font-size: 22px;
