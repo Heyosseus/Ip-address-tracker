@@ -23,25 +23,25 @@ const Header: React.FC<Props> = ({
 }: any) => {
   const [ipAddress, setIpAddress] = useState<string>('');
   const [location, setLocation] = useState<any>('');
-  const [city, setCity] = useState('');
-  const [timezone, setTimezone] = useState();
+  const [region, setRegion] = useState<any>('');
+  const [timezone, setTimezone] = useState<any>('');
   const [isp, setIsp] = useState<string>('');
   const [lat, setLat] = useState(41.71);
-  const [long, setLong] = useState(44.82);
+  const [lng, setLong] = useState(44.82);
 
   useEffect(() => {
     async function fetchAddress() {
       try {
-        const res = await fetch(`https://ip-api.com/json/`);
+        const res = await fetch(
+          `https://geo.ipify.org/api/v2/country?apiKey=at_D2NbQoXbTzXW9sWre8Ae1q6mRz96S&ipAddress=`
+        );
         const data = await res.json();
-        setIpAddress(data.query);
-        setLocation(data.country);
-        setCity(data.city);
-        setTimezone(data.timezone);
+        setIpAddress(data.ip);
+        setLocation(data.location.country);
+        setRegion(data.location.region);
+        setTimezone(data.location.timezone);
         setIsp(data.isp);
         setIpData(data);
-        setLat(data.lat);
-        setLong(data.lon);
       } catch (err) {
         console.error(err);
       }
@@ -52,16 +52,17 @@ const Header: React.FC<Props> = ({
 
   async function handleClick() {
     try {
-      const res = await fetch(`https://ip-api.com/json/${ip}`);
+      const res = await fetch(`
+      https://geo.ipify.org/api/v2/country,city?apiKey=at_D2NbQoXbTzXW9sWre8Ae1q6mRz96S&ipAddress=${ip}`);
       const forUser = await res.json();
-      setIpAddress(forUser.query);
-      setLocation(forUser.country);
-      setCity(forUser.city);
-      setTimezone(forUser.timezone);
+      setIpAddress(forUser.ip);
+      setLocation(forUser.location.country);
+      setRegion(forUser.location.region);
+      setTimezone(forUser.location.timezone);
       setIsp(forUser.isp);
       setIpData(forUser);
-      setLat(forUser.lat);
-      setLong(forUser.lon);
+      setLat(forUser.location.lat);
+      setLong(forUser.location.lng);
     } catch (err) {
       console.error(err);
     }
@@ -94,7 +95,7 @@ const Header: React.FC<Props> = ({
           <div>
             <LabelName>location</LabelName>
             <Infos>
-              {location} {city}
+              {location}, {region}
             </Infos>
           </div>
           <Line></Line>
@@ -111,7 +112,7 @@ const Header: React.FC<Props> = ({
           </div>
         </Container>
       </BackgroundImage>
-      <Content lat={lat} long={long} />
+      <Content lat={lat} lng={lng} />
     </div>
   );
 };

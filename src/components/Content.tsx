@@ -6,24 +6,25 @@ import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   lat: number;
-  long: number;
+  lng: number;
 }
 
 const Content = (props: Props) => {
   const [center, setCenter] = useState<[number, number]>([
     props.lat,
-    props.long,
+    props.lng,
   ]);
 
   useEffect(() => {
-    setCenter([props.lat, props.long]);
-  }, [props.lat, props.long]);
+    setCenter([props.lat, props.lng]);
+  }, [props.lat, props.lng]);
 
   const icon = new Icon({
     iconUrl: markerIcon,
     iconSize: [24, 34],
     iconAnchor: [12, 41],
   });
+
   function ChangeView(props: any) {
     const map = useMap();
     map.setView(props.center);
@@ -37,7 +38,7 @@ const Content = (props: Props) => {
         zoom={14}
         style={{ width: '100vw', height: '75vh', zIndex: 1 }}
       >
-        <ChangeView center={[props.lat, props.long]} />
+        <ChangeView center={[props.lat, props.lng]} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
